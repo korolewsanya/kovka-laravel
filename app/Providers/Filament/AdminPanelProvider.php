@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
             //Явно подключает стандартные виджеты Filament
             ->widgets([
                 AccountWidget::class,       //показывает информацию о текущем пользователе
-                FilamentInfoWidget::class,  //показывает версию Filament
+                //FilamentInfoWidget::class,  //показывает версию Filament
             ])
             //проверки, которые выполняются при каждом запросе к админке.
             ->middleware([

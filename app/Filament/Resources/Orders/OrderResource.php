@@ -8,6 +8,9 @@ use App\Notifications\NewOrderNotification;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\Action;
+use Illuminate\Support\Facades\Artisan;
+use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -112,7 +115,6 @@ class OrderResource extends Resource
                     ->nullable()
                     ->rows(3),
 
-                //ПОЛЕ ДЛЯ ЗАГРУЗКИ ИЗОБРАЖЕНИЯ
                 FileUpload::make('image')
                     ->label('Изображение')
                     ->image()
@@ -207,7 +209,39 @@ class OrderResource extends Resource
                     ->label('Редактировать'),
                 DeleteAction::make()
                     ->label('Удалить')
-                    ->visible(fn () => auth()->user()->role === 'admin'),  // ТОЛЬКО АДМИН
+                    ->visible(fn () => auth()->user()->role === 'admin'),
+            ])
+            ->headerActions([
+                // Добавляем текст-подсказку
+                Action::make('info')
+                ->label('Перед тестированием рекомендуется сбросить данные до исходных значений')
+                ->color('gray')
+                ->disabled()
+                ->icon('heroicon-o-information-circle'),
+
+                Action::make('resetDemo')
+                    ->label('Сбросить демо-данные')
+                    ->color('danger')
+                    ->icon('heroicon-o-arrow-path')
+                    ->requiresConfirmation()
+                    ->modalHeading('Сброс демо-данных')
+                    ->modalDescription('Внимание! Все изменения будут потеряны. Данные вернутся к исходному состоянию.')
+                    ->modalSubmitActionLabel('Да, сбросить')
+                    ->action(function () {
+                        try {
+                            Artisan::call('demo:reset');
+                            Notification::make()
+                                ->title('✅ Демо-данные восстановлены!')
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('❌ Ошибка при сбросе данных!')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ]);
     }
 

@@ -19,6 +19,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Forms\Components\ViewField;
+use Filament\Actions\Action;
+use Illuminate\Support\Facades\Artisan;
+use Filament\Notifications\Notification;
 
 class ProductResource extends Resource
 {
@@ -177,6 +180,38 @@ class ProductResource extends Resource
                     ->label('Редактировать'),
                 DeleteAction::make()
                     ->label('Удалить'),
+            ])
+             ->headerActions([
+                // Добавляем текст-подсказку
+                Action::make('info')
+                ->label('Перед тестированием рекомендуется сбросить данные до исходных значений')
+                ->color('gray')
+                ->disabled()
+                ->icon('heroicon-o-information-circle'),
+
+                Action::make('resetDemo')
+                    ->label('Сбросить демо-данные')
+                    ->color('danger')
+                    ->icon('heroicon-o-arrow-path')
+                    ->requiresConfirmation()
+                    ->modalHeading('Сброс демо-данных')
+                    ->modalDescription('Внимание! Все изменения будут потеряны. Данные вернутся к исходному состоянию.')
+                    ->modalSubmitActionLabel('Да, сбросить')
+                    ->action(function () {
+                        try {
+                            Artisan::call('demo:reset');
+                            Notification::make()
+                                ->title('✅ Демо-данные восстановлены!')
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('❌ Ошибка при сбросе данных!')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ]);
     }
 

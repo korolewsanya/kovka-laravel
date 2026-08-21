@@ -11,7 +11,7 @@ use Filament\Pages\Dashboard as BaseDashboard;
 class Dashboard extends BaseDashboard
 {
     protected static ?string $navigationLabel = 'Дашборд';
-    protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false; //отображение в меню справа
 
     public function getWidgets(): array
     {

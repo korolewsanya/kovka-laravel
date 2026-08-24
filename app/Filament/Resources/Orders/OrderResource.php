@@ -211,7 +211,7 @@ class OrderResource extends Resource
                     ->label('Удалить')
                     ->visible(fn () => auth()->user()->role === 'admin'),
             ])
-            ->headerActions([
+            /*->headerActions([
                 // Добавляем текст-подсказку
                 Action::make('info')
                 ->label('Перед тестированием рекомендуется сбросить данные до исходных значений')
@@ -242,7 +242,7 @@ class OrderResource extends Resource
                                 ->send();
                         }
                     }),
-            ]);
+            ])  */ ;
     }
 
     public static function getPages(): array

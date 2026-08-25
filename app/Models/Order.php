@@ -22,6 +22,8 @@ class Order extends Model
         'height',
         'status',
         'image',
+        'paid',
+        'progress',
     ];
     
     protected $casts = [

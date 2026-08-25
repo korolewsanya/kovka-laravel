@@ -24,6 +24,18 @@
                 <span>{{ $order->product->name }}</span>
             </div>
             <div class="flex justify-between">
+                <span class="font-semibold">Длина</span>
+                <span>{{ $order->length ?? 'Не указана' }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-semibold">Ширина</span>
+                <span>{{ $order->width ?? 'Не указана' }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-semibold">Высота</span>
+                <span>{{ $order->height ?? 'Не указана' }}</span>
+            </div>
+            <div class="flex justify-between">
                 <span class="font-semibold">Стоимость</span>
                 <span>{{ number_format($order->price, 0, '.', ' ') }} ₽</span>
             </div>
@@ -35,6 +47,18 @@
                 <span class="font-semibold">Телефон</span>
                 <span>{{ $order->customer_phone }}</span>
             </div>
+            @if($order->customer_email)
+            <div class="flex justify-between">
+                <span class="font-semibold">Email</span>
+                <span>{{ $order->customer_email }}</span>
+            </div>
+            @endif
+            @if($order->comment)
+            <div class="flex justify-between">
+                <span class="font-semibold">Комментарий</span>
+                <span>{{ $order->comment }}</span>
+            </div>
+            @endif
         </div>
 
         <div class="mt-6">

@@ -18,3 +18,6 @@ Route::get('/product/{category}/{id}', [PageController::class, 'product'])->name
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
 Route::get('/order/success/{id}', [OrderController::class, 'success'])->name('order.success');
+
+// МАРШРУТ ДЛЯ ПОИСКА
+Route::get('/search', [PageController::class, 'search'])->name('search');

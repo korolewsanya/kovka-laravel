@@ -137,6 +137,7 @@ class OrderResource extends Resource
                     ->label('№ заказа')
                     ->sortable(),
 
+                // колонка с изображением (изображение полное)
                 ImageColumn::make('image')
                     ->label('Фото')
                     ->circular()
@@ -145,7 +146,10 @@ class OrderResource extends Resource
                             return url('/storage/products/' . $record->image);
                         }
                         return url('/images/placeholder.png');
-                    }),
+                    })
+                    ->extraImgAttributes([
+                        'style' => 'background-color: white; object-fit: contain;',
+                    ]),
 
                 TextColumn::make('product.name')
                     ->label('Товар')

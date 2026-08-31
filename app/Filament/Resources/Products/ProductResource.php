@@ -108,6 +108,7 @@ class ProductResource extends Resource
                     ->label('ID')
                     ->toggleable(isToggledHiddenByDefault: true),
 
+                // колонка с изображением (изображение полное)
                 ImageColumn::make('image')
                     ->label('Фото')
                     ->circular()
@@ -116,7 +117,10 @@ class ProductResource extends Resource
                             return url('/storage/products/' . $record->image);
                         }
                         return url('/images/placeholder.png');
-                    }),
+                    })
+                    ->extraImgAttributes([
+                        'style' => 'background-color: white; object-fit: contain;',
+                    ]),
 
                 TextColumn::make('name')
                     ->label('Название')

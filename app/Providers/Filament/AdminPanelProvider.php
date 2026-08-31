@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()     //Устанавливает эту панель как основную (по умолчанию), т.к. может быть несколько панелей (админская, пользовательская), эта — главная.
             ->id('admin')   //Присваивает панели уникальный идентификатор 'admin'. Для внутренней маршрутизации и конфигурации.
+            ->topNavigation() //это для верхнего меню (по умолчанию сбоку слева)
             ->path('admin') //Устанавливает URL-адрес админ-панели. Теперь админка доступна по адресу: http://ваш-сайт/admin
             ->login()       //Включает стандартную страницу входа в админку. По адресу /admin/login появляется форма логина.
             ->colors([      //Устанавливает основной цвет панели.
@@ -65,6 +66,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('3rem')
             ->favicon(asset('images/favicon.ico'))
             ->brandName('Ковка')
-            ->darkMode(true);  //ВКЛЮЧАЕМ ТЁМНУЮ ТЕМУ
+            ->darkMode(true)//ВКЛЮЧАЕМ ТЁМНУЮ ТЕМУ
+            ->viteTheme('resources/css/filament/admin/theme.css');
+
     }
 }

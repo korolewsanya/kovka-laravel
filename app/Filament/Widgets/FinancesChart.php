@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Finance;
-use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 
 class FinancesChart extends ChartWidget
@@ -15,7 +14,6 @@ class FinancesChart extends ChartWidget
         $start = now()->startOfMonth();
         $end = now()->endOfMonth();
 
-        $days = [];
         $incomeData = [];
         $expenseData = [];
         $labels = [];
@@ -24,8 +22,8 @@ class FinancesChart extends ChartWidget
             $day = $date->format('Y-m-d');
             $labels[] = $date->format('d.m');
 
-            $incomeData[] = Finance::whereDate('created_at', $day)->sum('income');
-            $expenseData[] = Finance::whereDate('created_at', $day)->sum('expense');
+            $incomeData[] = Finance::whereDate('date', $day)->sum('income');
+            $expenseData[] = Finance::whereDate('date', $day)->sum('expense');
         }
 
         return [

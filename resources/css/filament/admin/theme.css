@@ -1,0 +1,27 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* Белый фон для превью изображения в FileUpload */
+
+.fi-fo-file-upload .filepond--image-preview {
+    background-color: #ffffff !important;
+}
+
+
+/* Убираем фон с контейнера */
+
+.fi-fo-file-upload .filepond--item {
+    background-color: transparent !important;
+}
+
+.fi-fo-file-upload .filepond--root {
+    background-color: transparent !important;
+}
+
+
+/* Дополнительно: белый фон для обертки превью */
+
+.fi-fo-file-upload .filepond--image-preview-wrapper {
+    background-color: #ffffff !important;
+}

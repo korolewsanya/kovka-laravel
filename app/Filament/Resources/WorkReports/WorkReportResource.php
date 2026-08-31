@@ -36,13 +36,13 @@ class WorkReportResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
-        
+
         if (auth()->user()->role !== 'admin') {
             $query->where(function ($q) {
                 $q->where('employee_id', auth()->user()->id);
             });
         }
-        
+
         return $query;
     }
 
@@ -56,17 +56,17 @@ class WorkReportResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                
+
                 Textarea::make('task')
                     ->label('ТЗ (Техническое задание)')
                     ->nullable()
                     ->rows(3),
-                
+
                 Textarea::make('report')
                     ->label('Отчет')
                     ->nullable()
                     ->rows(3),
-                
+
                 DatePicker::make('date')
                     ->label('Дата')
                     ->nullable(),
@@ -99,15 +99,15 @@ class WorkReportResource extends Resource
                 TextColumn::make('employee.full_name')
                     ->label('Сотрудник')
                     ->searchable()
-                    ->sortable(),    
+                    ->sortable(),
 
                 // ДОЛЖНОСТЬ ПОДТЯГИВАЕТСЯ ИЗ employees
                 TextColumn::make('employee.position')
                     ->label('Должность')
                     ->searchable()
                     ->sortable(),
-                
-                // колонка с изображением
+
+                // колонка с изображением (изображение не полное)
                 ImageColumn::make('image')
                     ->label('Фото')
                     ->circular()
@@ -116,17 +116,20 @@ class WorkReportResource extends Resource
                             return url('/storage/products/' . $record->image);
                         }
                         return url('/images/placeholder.png');
-                    }),
-                
+                    })
+                    ->extraImgAttributes([
+                        'class' => 'bg-white',
+                    ]),
+
                 TextColumn::make('date')
                     ->label('Дата')
                     ->date('d.m.Y')
                     ->sortable(),
-                
+
                 TextColumn::make('task')
                     ->label('ТЗ')
                     ->limit(30),
-                
+
                 TextColumn::make('report')
                     ->label('Отчет')
                     ->limit(30),

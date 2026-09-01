@@ -29,3 +29,4 @@ Thumbs.db
 /.phpunit.cache
 /coverage/
 AGENTS.md
+database/seeders/current_data.sql

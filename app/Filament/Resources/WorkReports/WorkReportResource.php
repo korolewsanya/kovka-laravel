@@ -83,7 +83,11 @@ class WorkReportResource extends Resource
                     ->loadingIndicatorPosition('center')
                     ->openable()
                     ->downloadable()
-                    ->helperText('Загрузите изображение к отчету (jpg, png, gif)'),
+                    ->helperText('Загрузите изображение к отчету (jpg, png, gif)')
+                    ->getUploadedFileNameForStorageUsing(function ($file) {
+                        // Сохраняем ТОЛЬКО имя файла (без products/)
+                        return $file->getClientOriginalName();
+                    }) ,
             ]);
     }
 

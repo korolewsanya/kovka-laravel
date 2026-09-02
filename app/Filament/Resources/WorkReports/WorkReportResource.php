@@ -83,11 +83,14 @@ class WorkReportResource extends Resource
                     ->loadingIndicatorPosition('center')
                     ->openable()
                     ->downloadable()
-                    ->helperText('Загрузите изображение к отчету (jpg, png, gif)')
                     ->getUploadedFileNameForStorageUsing(function ($file) {
-                        // Сохраняем ТОЛЬКО имя файла (без products/)
-                        return $file->getClientOriginalName();
-                    }) ,
+                            $extension = $file->getClientOriginalExtension();
+                            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                            // Убираем все проблемные символы: пробелы, скобки, и т.д.
+                            $name = preg_replace('/[^A-Za-zА-Яа-я0-9_-]/', '_', $name);
+                            return $name . '_' . time() . '.' . $extension;
+                        })
+                    ->helperText('Загрузите изображение к отчету (jpg, png, gif)'),
             ]);
     }
 

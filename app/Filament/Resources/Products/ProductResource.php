@@ -71,7 +71,14 @@ class ProductResource extends Resource
                     ->imagePreviewHeight('500')
                     ->loadingIndicatorPosition('center')
                     ->openable()
-                    ->downloadable(),
+                    ->downloadable()
+                    ->getUploadedFileNameForStorageUsing(function ($file) {
+                            $extension = $file->getClientOriginalExtension();
+                            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                            // Убираем все проблемные символы: пробелы, скобки, и т.д.
+                            $name = preg_replace('/[^A-Za-zА-Яа-я0-9_-]/', '_', $name);
+                            return $name . '_' . time() . '.' . $extension;
+                        }),
 
                 TextInput::make('price')
                     ->label('Цена (руб.)')

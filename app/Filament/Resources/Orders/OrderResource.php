@@ -125,7 +125,14 @@ class OrderResource extends Resource
                     ->imagePreviewHeight('500')
                     ->loadingIndicatorPosition('center')
                     ->openable()
-                    ->downloadable(),
+                    ->downloadable()
+                    ->getUploadedFileNameForStorageUsing(function ($file) {
+                            $extension = $file->getClientOriginalExtension();
+                            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                            // Убираем все проблемные символы: пробелы, скобки, и т.д.
+                            $name = preg_replace('/[^A-Za-zА-Яа-я0-9_-]/', '_', $name);
+                            return $name . '_' . time() . '.' . $extension;
+                        }),
             ]);
     }
 
@@ -137,15 +144,30 @@ class OrderResource extends Resource
                     ->label('№ заказа')
                     ->sortable(),
 
-                // колонка с изображением (изображение полное)
                 ImageColumn::make('image')
                     ->label('Фото')
                     ->circular()
                     ->defaultImageUrl(function ($record) {
+                        \Log::info('ImageColumn debug', [
+                            'record_id' => $record?->id,
+                            'image_raw' => $record?->image,
+                            'image_type' => gettype($record?->image),
+                        ]);
+
                         if ($record && $record->image) {
-                            return url('/storage/products/' . $record->image);
+                            $imagePath = str_replace('products/', '', $record->image);
+                            $fullPath = storage_path('app/public/products/' . $imagePath);
+
+                            \Log::info('ImageColumn path', [
+                                'imagePath' => $imagePath,
+                                'fullPath' => $fullPath,
+                                'file_exists' => file_exists($fullPath),
+                                'url' => asset('storage/products/' . $imagePath),
+                            ]);
+
+                            return asset('storage/products/' . $imagePath);
                         }
-                        return url('/images/placeholder.png');
+                        return asset('images/placeholder.png');
                     })
                     ->extraImgAttributes([
                         'style' => 'background-color: white; object-fit: contain;',
@@ -214,39 +236,7 @@ class OrderResource extends Resource
                 DeleteAction::make()
                     ->label('Удалить')
                     ->visible(fn () => auth()->user()->role === 'admin'),
-            ])
-            /*->headerActions([
-                // Добавляем текст-подсказку
-                Action::make('info')
-                ->label('Перед тестированием рекомендуется сбросить данные до исходных значений')
-                ->color('gray')
-                ->disabled()
-                ->icon('heroicon-o-information-circle'),
-
-                Action::make('resetDemo')
-                    ->label('Сбросить демо-данные')
-                    ->color('danger')
-                    ->icon('heroicon-o-arrow-path')
-                    ->requiresConfirmation()
-                    ->modalHeading('Сброс демо-данных')
-                    ->modalDescription('Внимание! Все изменения будут потеряны. Данные вернутся к исходному состоянию.')
-                    ->modalSubmitActionLabel('Да, сбросить')
-                    ->action(function () {
-                        try {
-                            Artisan::call('demo:reset');
-                            Notification::make()
-                                ->title('✅ Демо-данные восстановлены!')
-                                ->success()
-                                ->send();
-                        } catch (\Exception $e) {
-                            Notification::make()
-                                ->title('❌ Ошибка при сбросе данных!')
-                                ->body($e->getMessage())
-                                ->danger()
-                                ->send();
-                        }
-                    }),
-            ])  */ ;
+            ]);
     }
 
     public static function getPages(): array

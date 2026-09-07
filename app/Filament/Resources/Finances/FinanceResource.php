@@ -39,25 +39,25 @@ class FinanceResource extends Resource
                 DatePicker::make('date')
                     ->label('Дата')
                     ->nullable(),
-                
+
                 TextInput::make('income')
                     ->label('Доход (руб.)')
                     ->numeric()
                     ->prefix('₽')
                     ->default(0),
-                
+
                 TextInput::make('expense')
                     ->label('Расход (руб.)')
                     ->numeric()
                     ->prefix('₽')
                     ->default(0),
-                
+
                 TextInput::make('profit')
                     ->label('Прибыль (руб.)')
                     ->numeric()
                     ->prefix('₽')
                     ->default(0),
-                
+
                 Textarea::make('note')
                     ->label('Примечание')
                     ->nullable()
@@ -72,28 +72,28 @@ class FinanceResource extends Resource
                 TextColumn::make('id')
                     ->label('ID')
                     ->toggleable(isToggledHiddenByDefault: true),
-                
+
                 TextColumn::make('date')
                     ->label('Дата')
                     ->date('d.m.Y')
                     ->sortable(),
-                
+
                 TextColumn::make('income')
                     ->label('Доход')
                     ->money('RUB')
                     ->sortable(),
-                
+
                 TextColumn::make('expense')
                     ->label('Расход')
                     ->money('RUB')
                     ->sortable(),
-                
+
                 TextColumn::make('profit')
                     ->label('Прибыль')
                     ->money('RUB')
                     ->sortable()
                     ->color(fn ($record): string => $record->profit < 0 ? 'danger' : 'success'),
-                
+
                 TextColumn::make('note')
                     ->label('Примечание')
                     ->limit(30),

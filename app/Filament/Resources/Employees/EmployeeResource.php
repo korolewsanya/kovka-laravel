@@ -162,7 +162,8 @@ class EmployeeResource extends Resource
                 TextColumn::make('hire_date')
                     ->label('Дата приема')
                     ->date('d.m.Y')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('is_active')
                     ->label('Активен')

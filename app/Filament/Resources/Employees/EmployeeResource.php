@@ -144,7 +144,7 @@ class EmployeeResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),//скрыта на телефоне с возможностью показать
 
                 TextColumn::make('full_name')
                     ->label('ФИО')

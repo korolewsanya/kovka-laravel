@@ -20,6 +20,8 @@ use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\Artisan;
 use Filament\Notifications\Notification;
+use Intervention\Image\Geometry\Pixel;
+use Illuminate\Support\Facades\Config; // Для демо режима
 
 class EmployeeResource extends Resource
 {
@@ -140,6 +142,10 @@ class EmployeeResource extends Resource
 
     public static function table(Table $table): Table
     {
+         // Берем настройки из config/demo.php
+        $isDemo = Config::get('demo.enabled', true); // true - демо-режим включен
+        $tooltip = Config::get('demo.tooltip', '🔒 Демо-режим'); // текст подсказки
+
         return $table
             ->columns([
                 TextColumn::make('id')
@@ -174,10 +180,12 @@ class EmployeeResource extends Resource
             ->recordActions([
                 EditAction::make()
                     ->label('Редактировать'),
-                
+
                 // Сброс пароля
                 \Filament\Actions\Action::make('resetPassword')
                     ->label('Сбросить пароль')
+                    ->disabled($isDemo) // Используем значение из config
+                    ->tooltip($tooltip) // Используем значение из config
                     ->color('warning')
                     ->icon('heroicon-o-key')
                     //скрываем кнопку на маленьких экранах
@@ -207,7 +215,9 @@ class EmployeeResource extends Resource
             ->modalSubmitActionLabel('Да, сбросить'),
 
             DeleteAction::make()
-                ->label('Удалить'),
+                ->label('Удалить')
+                ->disabled($isDemo) // Используем значение из config
+                ->tooltip($tooltip), // Используем значение из config,
             ]);
     }
 

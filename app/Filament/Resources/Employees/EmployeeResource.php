@@ -180,6 +180,11 @@ class EmployeeResource extends Resource
                     ->label('Сбросить пароль')
                     ->color('warning')
                     ->icon('heroicon-o-key')
+                    //скрываем кнопку на маленьких экранах
+                    ->hidden(function () {
+                        $agent = request()->server('HTTP_USER_AGENT');
+                        return preg_match('/mobile|android|iphone|ipad|phone/i', $agent);
+                        })
                     ->action(function ($record) {
                         // Генерируем случайный пароль из 8 символов
                         $newPassword = \Illuminate\Support\Str::random(8);

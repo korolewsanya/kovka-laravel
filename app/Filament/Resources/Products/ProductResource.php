@@ -136,6 +136,7 @@ class ProductResource extends Resource
 
                 TextColumn::make('category')
                     ->label('Категория')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'vorota' => 'Ворота',
                         'zabor' => 'Заборы',

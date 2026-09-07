@@ -168,7 +168,7 @@ class ProductResource extends Resource
                     ->toggleable(),
 
                 IconColumn::make('is_active')
-                    ->label('Активен')
+                    ->label('Наличие')
                     ->boolean()
                     ->sortable(),
             ])

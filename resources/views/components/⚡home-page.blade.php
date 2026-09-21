@@ -6,6 +6,7 @@ new class extends Component
 {
     public function render()
     {
+        // Карта категорий: slug => [название, файл изображения]
         $categories = [
             'mangal' => ['name' => 'Мангалы', 'image' => 'Мангал_обработано.png'],
             'lavo4ki' => ['name' => 'Лавочки', 'image' => 'Лавочки.jpg'],
@@ -29,17 +30,17 @@ new class extends Component
         <div class="hero-content flex-col w-full p-0">
             <!-- 3 картинки в ряд на всю ширину (только на десктопе) -->
             <div class="hidden md:grid grid-cols-3 gap-2 w-full">
-                <img src="{{ asset('storage/products/Набор кованных элементов.png') }}" 
-                     alt="Ворота" 
+                <img src="{{ asset('storage/products/Набор кованных элементов.png') }}"
+                     alt="Ворота"
                      class="w-full h-32 object-contain bg-base-100">
-                <img src="{{ asset('storage/products/Надпись.png') }}" 
-                     alt="Мангалы" 
+                <img src="{{ asset('storage/products/Надпись.png') }}"
+                     alt="Мангалы"
                      class="w-full h-32 object-contain bg-base-100">
-                <img src="{{ asset('storage/products/Кованные изделия.png') }}" 
-                     alt="Мебель" 
+                <img src="{{ asset('storage/products/Кованные изделия.png') }}"
+                     alt="Мебель"
                      class="w-full h-32 object-contain bg-base-100">
             </div>
-            
+
             <!-- Текст снизу -->
             <div class="text-center py-6 px-4 w-full">
                 <p class="py-6 text-lg max-w-2xl mx-auto">Изготовление на заказ. Индивидуальный подход. Качество ручной работы.</p>
@@ -50,11 +51,11 @@ new class extends Component
     <!-- Категории -->
     <div id="catalog" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         @foreach($categories as $slug => $cat)
-            <a href="{{ route('category', $slug) }}" 
+            <a href="{{ route('category', $slug) }}"
                class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 hover:-translate-y-1">
                 <figure class="h-48 bg-base-200">
-                    <img src="{{ asset('storage/products/' . $cat['image']) }}" 
-                         alt="{{ $cat['name'] }}" 
+                    <img src="{{ asset('storage/products/' . $cat['image']) }}"
+                         alt="{{ $cat['name'] }}"
                          class="w-full h-full object-cover"
                          loading="lazy">
                 </figure>

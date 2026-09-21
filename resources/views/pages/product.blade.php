@@ -1,14 +1,21 @@
+{{-- Берём общую рамку сайта: шапка, подвал, стили — всё оттуда --}}
 @extends('layouts.app')
 
+{{-- Заголовок вкладки браузера = название товара --}}
 @section('title', $product->name)
 
+{{-- Содержимое страницы: вставится в @yield('content') главного шаблона --}}
 @section('content')
+{{-- Раскладка из двух колонок на больших экранах: слева фото, справа инфо + форма --}}
 <div class="grid md:grid-cols-2 gap-8">
+
+{{-- ЛЕВАЯ КОЛОНКА: фото товара --}}
     <div class="card bg-base-100 shadow-xl">
         <figure class="h-[400px] bg-base-200 p-4">
+            {{-- Если у товара есть картинка — показываем её --}}
             @if($product->image)
-                <img src="{{ asset('storage/' . $product->image) }}" 
-                     alt="{{ $product->name }}" 
+                <img src="{{ asset('storage/' . $product->image) }}"
+                     alt="{{ $product->name }}"
                      class="w-full h-full object-contain">
             @else
                 <div class="flex items-center justify-center w-full h-full text-base-300">
@@ -18,11 +25,16 @@
         </figure>
     </div>
 
+    {{-- ПРАВАЯ КОЛОНКА: название, размеры, цена и форма заказа --}}
     <div class="card bg-base-100 shadow-xl p-6">
+
+        {{-- Название товара --}}
         <h1 class="text-3xl font-bold">{{ $product->name }}</h1>
-        
+
+        {{-- Горизонтальная линия-разделитель --}}
         <div class="divider"></div>
 
+        {{-- Размеры. Каждую строку показываем ТОЛЬКО если поле заполнено --}}
         <div class="space-y-3">
             @if($product->length)
                 <div class="flex justify-between">
@@ -52,7 +64,9 @@
 
         <div class="divider"></div>
 
+        {{-- ФОРМА ЗАКАЗА. Отправляется POST-запросом на маршрут 'order.store' --}}
         <form action="{{ route('order.store') }}" method="POST" class="space-y-4">
+            {{-- Защитный токен безопасности --}}
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->id }}">
 

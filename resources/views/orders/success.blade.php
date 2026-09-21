@@ -1,10 +1,14 @@
+{{-- Используем главный шаблон layouts/app.blade.php как рамку --}}
 @extends('layouts.app')
 
+{{-- Заголовок вкладки браузера --}}
 @section('title', 'Заказ оформлен')
 
+{{-- Всё, что ниже, вставится в главный шаблон вместо @yield('content') --}}
 @section('content')
 <div class="max-w-lg mx-auto">
     <div class="card bg-base-100 shadow-xl text-center p-8">
+        {{-- Большая зелёная галочка сверху --}}
         <div class="flex justify-center mb-6">
             <div class="w-24 h-24 bg-success rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -18,11 +22,13 @@
 
         <div class="divider">Детали заказа</div>
 
+         {{-- Список с информацией о заказе. Слева — название поля, справа — значение --}}
         <div class="text-left space-y-2">
             <div class="flex justify-between">
                 <span class="font-semibold">Изделие</span>
                 <span>{{ $order->product->name }}</span>
             </div>
+            {{-- Размеры. Если поле пустое — покажем "Не указана" --}}
             <div class="flex justify-between">
                 <span class="font-semibold">Длина</span>
                 <span>{{ $order->length ?? 'Не указана' }}</span>

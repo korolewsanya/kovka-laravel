@@ -6,13 +6,17 @@ use App\Models\Product;
 
 new class extends Component
 {
+    // Поисковый запрос; синхронизируется с URL (?q=...)
     #[Url(as: 'q')]
     public $query = '';
 
+    // Подсказки (первые N результатов) и счётчик всех совпадений
     public $results = [];
     public $showResults = false;
     public $totalCount = 0;
 
+    //Вызывается при каждом изменении $query (live).
+    //Если введено >= 2 символов — ищем товары и показываем выпадающий список.
     public function updatedQuery()
     {
         if (strlen($this->query) >= 2) {
@@ -31,12 +35,14 @@ new class extends Component
 
             $this->showResults = true;
         } else {
+            // Слишком короткий запрос — очищаем результаты
             $this->results = collect();
             $this->totalCount = 0;
             $this->showResults = false;
         }
     }
 
+    //Переход на страницу с полными результатами поиска.
     public function search()
     {
         if ($this->query !== '') {
@@ -54,6 +60,7 @@ new class extends Component
 <div class="relative" x-data="{ show: $wire.showResults }"
      @click.away="show = false">
 
+     {{-- Форма поиска --}}
     <form wire:submit.prevent="search" class="flex">
         <input type="text"
                wire:model.live.debounce.300ms="query"
@@ -63,6 +70,7 @@ new class extends Component
                x-on:blur="setTimeout(() => show = false, 200)"
                x-on:input="show = true">
 
+               {{-- Иконка поиска (по клику отправляет форму) --}}
         <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2">
             <svg class="h-4 w-4 text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -70,12 +78,13 @@ new class extends Component
         </button>
     </form>
 
-    {{-- Результаты --}}
+    {{-- Выпадающий список подсказок --}}
     @if($showResults && count($results) > 0)
         <div class="absolute top-full left-0 right-0 mt-1 bg-base-100 rounded-lg shadow-xl border z-50"
              x-show="show"
              x-transition>
             @foreach($results as $product)
+            {{-- Ссылка на страницу товара; клик закрывает список --}}
                 <a href="{{ route('product', ['category' => $product->category, 'id' => $product->id]) }}"
                    class="flex items-center gap-2 p-2 hover:bg-base-200 transition-colors"
                    @click="show = false">

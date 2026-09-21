@@ -6,6 +6,8 @@ use App\Models\Product;
 
 new class extends Component
 {
+    // Все фильтры ниже сохраняются в адресе страницы (URL).
+    // Это значит: ссылкой с фильтрами можно поделиться, а при обновлении страницы фильтры не сбросятся.
     #[Url(as: 'price_min')]
     public $priceMin = '';
 
@@ -30,11 +32,14 @@ new class extends Component
     #[Url(as: 'height_max')]
     public $heightMax = '';
 
+    // Slug текущей категории и её человекочитаемое название
     public $category;
     public $categoryName;
 
+    //Инициализация компонента.Проверяем, что переданная категория существует, иначе отдаём 404.
     public function mount($category)
     {
+        // Карта допустимых категорий: slug => название
         $categoryNames = [
             'mangal' => 'Мангалы',
             'lavo4ki' => 'Лавочки',
@@ -55,11 +60,13 @@ new class extends Component
         $this->categoryName = $categoryNames[$category];
     }
 
+    //Формирует выборку товаров с учётом фильтров и сразу показывает на экране.
     public function render()
     {
+        // Базовый запрос: товары только текущей категории
         $query = Product::where('category', $this->category);
 
-        // Цена
+        // Фильтр по цене
         if ($this->priceMin !== '' && is_numeric($this->priceMin)) {
             $query->where('price', '>=', (float) $this->priceMin);
         }
@@ -91,6 +98,7 @@ new class extends Component
             $query->whereRaw('CAST(REPLACE(REPLACE(height, " мм", ""), "мм", "") AS DECIMAL) <= ?', [(float) $this->heightMax]);
         }
 
+        // Выполняем запрос и передаём товары в шаблон
         $products = $query->get();
 
         return view('components.⚡category-filter', [
@@ -98,9 +106,10 @@ new class extends Component
         ]);
     }
 
+    //Сбрасывает все фильтры в исходное состояние.Livewire автоматически обновит URL (благодаря #[Url]) и перерисует список.
     public function resetFilters()
     {
-        $this->reset(['priceMin', 'priceMax', 'lengthMin', 'lengthMax', 
+        $this->reset(['priceMin', 'priceMax', 'lengthMin', 'lengthMax',
                       'widthMin', 'widthMax', 'heightMin', 'heightMax']);
     }
 };
@@ -108,25 +117,25 @@ new class extends Component
 
 <div>
     <div class="flex flex-col lg:flex-row gap-6">
-        {{-- Фильтр --}}
+        {{-- Боковая панель с фильтрами --}}
         <div class="lg:w-72 shrink-0">
             <div class="card bg-base-100 shadow-xl sticky top-4">
                 <div class="card-body p-4">
                     <h2 class="card-title text-lg">Фильтр</h2>
-                    
-                    {{-- Цена --}}
+
+                    {{-- Фильтр по цене --}}
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Цена, ₽</span>
                         </label>
                         <div class="flex gap-2">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="priceMin"
-                                   placeholder="от" 
+                                   placeholder="от"
                                    class="input input-bordered input-sm w-full">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="priceMax"
-                                   placeholder="до" 
+                                   placeholder="до"
                                    class="input input-bordered input-sm w-full">
                         </div>
                     </div>
@@ -137,13 +146,13 @@ new class extends Component
                             <span class="label-text">Длина, мм</span>
                         </label>
                         <div class="flex gap-2">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="lengthMin"
-                                   placeholder="от" 
+                                   placeholder="от"
                                    class="input input-bordered input-sm w-full">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="lengthMax"
-                                   placeholder="до" 
+                                   placeholder="до"
                                    class="input input-bordered input-sm w-full">
                         </div>
                     </div>
@@ -154,13 +163,13 @@ new class extends Component
                             <span class="label-text">Ширина, мм</span>
                         </label>
                         <div class="flex gap-2">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="widthMin"
-                                   placeholder="от" 
+                                   placeholder="от"
                                    class="input input-bordered input-sm w-full">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="widthMax"
-                                   placeholder="до" 
+                                   placeholder="до"
                                    class="input input-bordered input-sm w-full">
                         </div>
                     </div>
@@ -171,13 +180,13 @@ new class extends Component
                             <span class="label-text">Высота, мм</span>
                         </label>
                         <div class="flex gap-2">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="heightMin"
-                                   placeholder="от" 
+                                   placeholder="от"
                                    class="input input-bordered input-sm w-full">
-                            <input type="number" 
+                            <input type="number"
                                    wire:model.live.debounce.300ms="heightMax"
-                                   placeholder="до" 
+                                   placeholder="до"
                                    class="input input-bordered input-sm w-full">
                         </div>
                     </div>
@@ -191,24 +200,28 @@ new class extends Component
             </div>
         </div>
 
-        {{-- Товары --}}
+        {{-- Список товаров --}}
         <div class="flex-1">
+            {{-- Счётчик найденных товаров --}}
             <div class="text-sm mb-4 text-base-content/70">
                 Найдено товаров: {{ $products->count() }}
             </div>
 
             @if($products->count())
+            {{-- Сетка карточек товаров --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     @foreach($products as $product)
-                        <a href="{{ route('product', ['category' => $category, 'id' => $product->id]) }}" 
+                        <a href="{{ route('product', ['category' => $category, 'id' => $product->id]) }}"
                            class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
                             <figure class="h-56 bg-base-200 p-2 relative">
+                                {{-- Бейдж "На заказ" для кастомных товаров --}}
                                 @if($product->is_custom)
                                     <span class="absolute top-2 right-2 badge badge-primary">На заказ</span>
                                 @endif
+                                {{-- Изображение товара или заглушка --}}
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" 
-                                         alt="{{ $product->name }}" 
+                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                         alt="{{ $product->name }}"
                                          class="w-full h-full object-contain">
                                 @else
                                     <div class="flex items-center justify-center w-full h-full text-base-300">
@@ -218,6 +231,7 @@ new class extends Component
                             </figure>
                             <div class="card-body p-4">
                                 <h2 class="card-title text-base">{{ $product->name }}</h2>
+                                {{-- Габариты: показываем только те, что заполнены --}}
                                 @if($product->length || $product->width || $product->height)
                                     <div class="text-sm text-base-content/60">
                                         {{ $product->length ? $product->length : '' }}
@@ -233,6 +247,7 @@ new class extends Component
                     @endforeach
                 </div>
             @else
+             {{-- Сообщение, если ничего не найдено --}}
                 <div class="alert alert-info">
                     <span>Товаров не найдено</span>
                 </div>

@@ -25,16 +25,23 @@ use Illuminate\Support\Facades\Config; // Для демо режима
 
 class EmployeeResource extends Resource
 {
+    //Указывает, что ресурс работает с моделью App\Models\Employee.
+    //Все запросы к БД (список, создание, редактирование, удаление) Filament строит автоматически на основе этой модели.
     protected static ?string $model = Employee::class;
 
+    //Иконка в верхнем меню навигации
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
+    //Текст кнопки в навигации — «Сотрудники»
     protected static ?string $navigationLabel = 'Сотрудники';
 
+    //Название одной записи — «Сотрудник»
     protected static ?string $modelLabel = 'Сотрудник';
 
+    //Название раздела во множественном числе
     protected static ?string $pluralModelLabel = 'Сотрудники';
 
+    //Какое поле считать «заголовком» записи (используется в заголовках страниц редактирования)
     protected static ?string $recordTitleAttribute = 'full_name';
 
     public static function getNavigationItems(): array

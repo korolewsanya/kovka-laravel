@@ -6,18 +6,22 @@ use App\Models\Product;
 
 new class extends Component
 {
+    // Поисковый запрос; синхронизируется с URL
     #[Url]
     public $query = '';
 
+    //Инициализация: получаем запрос из параметров маршрута.
     public function mount($query)
     {
         $this->query = $query;
     }
 
+    //Ищет активные товары по названию, описанию и категории, затем рендерит страницу с результатами.
     public function render()
     {
         $products = Product::where('is_active', true)
             ->where(function($q) {
+                // Группируем OR-условия, чтобы не сломать фильтр is_active
                 $q->where('name', 'like', "%{$this->query}%")
                   ->orWhere('description', 'like', "%{$this->query}%")
                   ->orWhere('category', 'like', "%{$this->query}%");
@@ -38,17 +42,20 @@ new class extends Component
     </div>
 
     @if($count > 0)
+     {{-- Сетка карточек товаров --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach($products as $product)
-                <a href="{{ route('product', ['category' => $product->category, 'id' => $product->id]) }}" 
+                <a href="{{ route('product', ['category' => $product->category, 'id' => $product->id]) }}"
                    class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
                     <figure class="h-56 bg-base-200 p-2 relative">
+                        {{-- Бейдж "На заказ" --}}
                         @if($product->is_custom)
                             <span class="absolute top-2 right-2 badge badge-primary">На заказ</span>
                         @endif
+                        {{-- Изображение или заглушка --}}
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" 
-                                 alt="{{ $product->name }}" 
+                            <img src="{{ asset('storage/' . $product->image) }}"
+                                 alt="{{ $product->name }}"
                                  class="w-full h-full object-contain">
                         @else
                             <div class="flex items-center justify-center w-full h-full text-base-300">
@@ -60,9 +67,11 @@ new class extends Component
                     </figure>
                     <div class="card-body p-4">
                         <h2 class="card-title text-base">{{ $product->name }}</h2>
+                        {{-- Бейдж с slug категории --}}
                         <div class="text-sm text-base-content/60">
                             <span class="badge badge-ghost badge-xs">{{ $product->category }}</span>
                         </div>
+                         {{-- Габариты (только заполненные поля) --}}
                         @if($product->length || $product->width || $product->height)
                             <div class="text-sm text-base-content/60">
                                 {{ $product->length ? $product->length : '' }}

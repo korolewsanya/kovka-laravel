@@ -33,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             // Автоматически находит и подключает все ресурсы (CRUD-интерфейсы). Путь: app/Filament/Pages  Пространство имен: App\Filament\Pages
+            //т.е. это кнопки верхнего меню, названия и порядок которых берётся из свойства $navigationLabel и $navigationSort в App\Filament\Resources\order.php и т.д.
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([               //регистрирует дополнительные страницы

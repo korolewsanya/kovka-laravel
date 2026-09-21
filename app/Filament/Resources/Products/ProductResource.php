@@ -22,6 +22,8 @@ use Filament\Forms\Components\ViewField;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\Artisan;
 use Filament\Notifications\Notification;
+use App\Filament\Resources\Products\Schemas\ProductForm;
+use App\Filament\Resources\Products\Tables\ProductsTable;
 
 class ProductResource extends Resource
 {
@@ -36,163 +38,12 @@ class ProductResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                TextInput::make('name')
-                    ->label('Название')
-                    ->required()
-                    ->maxLength(255),
-
-                Select::make('category')
-                    ->label('Категория')
-                    ->required()
-                    ->options([
-                        'vorota' => 'Ворота',
-                        'zabor' => 'Заборы',
-                        'mangal' => 'Мангалы',
-                        'kozirek' => 'Козырьки',
-                        'lavo4ki' => 'Лавочки',
-                        'ogradki' => 'Оградки',
-                        'reshetki' => 'Решетки',
-                        'mebel' => 'Мебель',
-                        'melo4i' => 'Полезные мелочи',
-                        'other' => 'Другое',
-                    ])
-                    ->searchable(),
-
-                //ПОЛЕ ДЛЯ ЗАГРУЗКИ ИЗОБРАЖЕНИЯ
-                FileUpload::make('image')
-                    ->label('Изображение')
-                    ->image()
-                    ->directory('products')
-                    ->visibility('public')
-                    ->preserveFilenames()
-                    ->nullable()
-                    ->imagePreviewHeight('500')
-                    ->loadingIndicatorPosition('center')
-                    ->openable()
-                    ->downloadable()
-                    ->getUploadedFileNameForStorageUsing(function ($file) {
-                            $extension = $file->getClientOriginalExtension();
-                            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                            // Убираем все проблемные символы: пробелы, скобки, и т.д.
-                            $name = preg_replace('/[^A-Za-zА-Яа-я0-9_-]/', '_', $name);
-                            return $name . '_' . time() . '.' . $extension;
-                        }),
-
-                TextInput::make('price')
-                    ->label('Цена (руб.)')
-                    ->numeric()
-                    ->prefix('₽')
-                    ->nullable(),
-
-                TextInput::make('length')
-                    ->label('Длина (мм)')
-                    ->nullable()
-                    ->maxLength(255),
-
-                TextInput::make('width')
-                    ->label('Ширина (мм)')
-                    ->nullable()
-                    ->maxLength(255),
-
-                TextInput::make('height')
-                    ->label('Высота (мм)')
-                    ->nullable()
-                    ->maxLength(255),
-
-                Toggle::make('is_active')
-                    ->label('Активен')
-                    ->default(true),
-            ]);
+        return ProductForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                // колонка с изображением (изображение полное)
-                ImageColumn::make('image')
-                    ->label('Фото')
-                    ->circular()
-                    ->defaultImageUrl(function ($record) {
-                        if ($record && $record->image) {
-                            return url('/storage/products/' . $record->image);
-                        }
-                        return url('/images/placeholder.png');
-                    })
-                    ->extraImgAttributes([
-                        'style' => 'background-color: white; object-fit: contain;',
-                    ]),
-
-                TextColumn::make('name')
-                    ->label('Название')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('category')
-                    ->label('Категория')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'vorota' => 'Ворота',
-                        'zabor' => 'Заборы',
-                        'mangal' => 'Мангалы',
-                        'kozirek' => 'Козырьки',
-                        'lavo4ki' => 'Лавочки',
-                        'ogradki' => 'Оградки',
-                        'reshetki' => 'Решетки',
-                        'mebel' => 'Мебель',
-                        'melo4i' => 'Полезные мелочи',
-                        default => $state,
-                    }),
-
-                TextColumn::make('price')
-                    ->label('Цена')
-                    ->money('RUB')
-                    ->sortable(),
-
-                TextColumn::make('length')
-                    ->label('Длина')
-                    ->toggleable(),
-
-                TextColumn::make('width')
-                    ->label('Ширина')
-                    ->toggleable(),
-
-                TextColumn::make('height')
-                    ->label('Высота')
-                    ->toggleable(),
-
-                IconColumn::make('is_active')
-                    ->label('Наличие')
-                    ->boolean()
-                    ->sortable(),
-            ])
-            ->filters([
-                SelectFilter::make('category')
-                    ->label('Категория')
-                    ->options([
-                        'vorota' => 'Ворота',
-                        'zabor' => 'Заборы',
-                        'mangal' => 'Мангалы',
-                        'kozirek' => 'Козырьки',
-                        'lavo4ki' => 'Лавочки',
-                        'ogradki' => 'Оградки',
-                        'reshetki' => 'Решетки',
-                        'mebel' => 'Мебель',
-                        'melo4i' => 'Полезные мелочи',
-                    ]),
-            ])
-            ->recordActions([
-                EditAction::make()
-                    ->label('Редактировать'),
-                DeleteAction::make()
-                    ->label('Удалить'),
-            ]);
+       return ProductsTable::configure($table);
     }
 
     public static function getPages(): array

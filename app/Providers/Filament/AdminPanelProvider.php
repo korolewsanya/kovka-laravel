@@ -63,8 +63,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->brandLogo(asset('images/logo2.png'))
             ->darkModeBrandLogo(asset('images/logo.png'))  // второй логотип для тёмной темы
-            ->brandLogoHeight('3rem')
-            ->favicon(asset('images/favicon.ico'))
+            ->brandLogoHeight('3rem')                      // высота логотипа
+            ->favicon(asset('images/logo.png'))            // иконка вкладки браузера
             ->brandName('Ковка')
             ->darkMode(true)//ВКЛЮЧАЕМ ТЁМНУЮ ТЕМУ
             ->viteTheme('resources/css/filament/admin/theme.css');

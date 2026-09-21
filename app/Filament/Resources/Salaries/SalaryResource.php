@@ -4,19 +4,12 @@ namespace App\Filament\Resources\Salaries;
 
 use App\Models\Salary;
 use BackedEnum;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Actions\Action;
-use Illuminate\Support\Facades\Artisan;
-use Filament\Notifications\Notification;
+use App\Filament\Resources\Salaries\Schemas\SalaryForm;
+use App\Filament\Resources\Salaries\Tables\SalariesTable;
 
 class SalaryResource extends Resource
 {
@@ -29,80 +22,12 @@ class SalaryResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([
-            Select::make('employee_id')
-                ->label('Сотрудник')
-                ->relationship('employee', 'full_name')
-                ->searchable()
-                ->preload()
-                ->required(),
-
-            // ДОЛЖНОСТЬ ТОЛЬКО ДЛЯ ОТОБРАЖЕНИЯ (НЕ ДЛЯ ВВОДА)
-            // Убираем это поле из формы, так как должность берётся из employees
-
-            DatePicker::make('date')
-                ->label('Дата')
-                ->nullable(),
-
-            TextInput::make('accrued')
-                ->label('Начислено (руб.)')
-                ->numeric()
-                ->prefix('₽')
-                ->default(0),
-
-            TextInput::make('received')
-                ->label('Получено (руб.)')
-                ->numeric()
-                ->prefix('₽')
-                ->default(0),
-
-            TextInput::make('description')
-                ->label('Описание')
-                ->maxLength(255)
-                ->nullable(),
-        ]);
+        return SalaryForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table->columns([
-            TextColumn::make('id')
-                ->label('ID')
-                ->toggleable(isToggledHiddenByDefault: true),
-
-            TextColumn::make('employee.full_name')
-                ->label('Сотрудник')
-                ->searchable()
-                ->sortable(),
-
-            //ДОЛЖНОСТЬ ПОДТЯГИВАЕТСЯ ИЗ employees 
-            TextColumn::make('employee.position')
-                ->label('Должность')
-                ->searchable()
-                ->sortable(),
-
-            TextColumn::make('date')
-                ->label('Дата')
-                ->date('d.m.Y')
-                ->sortable(),
-
-            TextColumn::make('accrued')
-                ->label('Начислено')
-                ->money('RUB')
-                ->sortable(),
-
-            TextColumn::make('received')
-                ->label('Получено')
-                ->money('RUB')
-                ->sortable(),
-
-            TextColumn::make('description')
-                ->label('Описание')
-                ->limit(30),
-        ])->recordActions([
-            EditAction::make()->label('Редактировать'),
-            DeleteAction::make()->label('Удалить'),
-        ]);
+        return SalariesTable::configure($table);
     }
 
     public static function getPages(): array

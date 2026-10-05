@@ -73,7 +73,7 @@
 | **Редактирование заказа** | **Создание товара** | **Редактирование материала** |
 | <img src="screenshots/Приложение/ЗаказыРедактирование.png" width="200"> | <img src="screenshots/Приложение/ТоварыСоздание.png" width="200"> | <img src="screenshots/Приложение/МатериалыРедактирование.png" width="200"> |
 | **Отчеты** | **Редактирование отчета** | **Финансы** |
-| <img src="screenshots/Приложение/Отчеты.png" width="200"> | <img src="screenshots/Приложение/ОтчетыРедактирование.png" width="200"> | <img src="screenshots/Приложение/финансы.png" width="200"> |
+| <img src="screenshots/Приложение/Отчеты.png" width="200"> | <img src="screenshots/Приложение/ОтчетыРедактирование.png" width="200"> | <img src="screenshots/Приложение/Финансы.png" width="200"> |
 
 </details>
 

@@ -43,7 +43,6 @@
 
 </details>
 
-<br>
 
 #### ⚙️ Админ-панель и CRM (Filament)
 <details>
@@ -62,7 +61,6 @@
 
 </details>
 
-<br>
 
 #### 📱 Мобильное приложение (Android/Java)
 <details>

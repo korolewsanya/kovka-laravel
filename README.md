@@ -26,6 +26,44 @@
 
 ---
 
+### 📸 Галерея скриншотов
+
+#### 🛍 Витрина интернет-магазина (Frontend)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты сайта</summary>
+<br>
+
+| Главная страница | Каталог товаров |
+| :---: | :---: |
+| <img src="screenshots/Сайт/главная.png" width="400"> | <img src="screenshots/Сайт/товары.png" width="400"> |
+| **Поиск по сайту** | **Оформление заказа** |
+| <img src="screenshots/Сайт/поиск.png" width="400"> | <img src="screenshots/Сайт/заказ.png" width="400"> |
+| **Успешный заказ** | |
+| <img src="screenshots/Сайт/финиш.png" width="400"> | |
+
+</details>
+
+<br>
+
+#### ⚙️ Админ-панель и CRM (Filament)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты админки</summary>
+<br>
+
+| Инфопанель (Dashboard) | Управление заказами |
+| :---: | :---: |
+| <img src="screenshots/Админка/Инфопанель.png" width="400"> | <img src="screenshots/Админка/Заказы.png" width="400"> |
+| **Редактирование заказа** | **Управление товарами** |
+| <img src="screenshots/Админка/ЗаказыРедактирование.png" width="400"> | <img src="screenshots/Админка/Товары.png" width="400"> |
+| **Редактирование товара** | **Материалы** |
+| <img src="screenshots/Админка/ТоварыРедактирование.png" width="400"> | <img src="screenshots/Админка/Материалы.png" width="400"> |
+| **Отчеты** | |
+| <img src="screenshots/Админка/Отчеты.png" width="400"> | |
+
+</details>
+
+---
+
 ### 🛠️ Технологии:
 
 | Компонент | Технологии |

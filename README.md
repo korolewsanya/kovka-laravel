@@ -50,24 +50,15 @@
 <summary>👉 Нажмите, чтобы развернуть скриншоты админки</summary>
 <br>
 
-| Дашборд | Управление заказами |
+| Инфопанель (Dashboard) | Управление заказами |
 | :---: | :---: |
-| <img src="screenshots/Админка/дашборд.png" width="400"> | <img src="screenshots/Админка/заказы.png" width="400"> |
-| **CRM система** | **Финансы** |
-| <img src="screenshots/Админка/crm.png" width="400"> | <img src="screenshots/Админка/финансы.png" width="400"> |
-
-</details>
-
-<br>
-
-#### 📱 Мобильное приложение (Android/Java)
-<details>
-<summary>👉 Нажмите, чтобы развернуть скриншоты мобильного приложения</summary>
-<br>
-
-| Экран входа | Список заказов | Уведомления |
-| :---: | :---: | :---: |
-| <img src="screenshots/Мобильное/login.png" width="200"> | <img src="screenshots/Мобильное/orders.png" width="200"> | <img src="screenshots/Мобильное/notifications.png" width="200"> |
+| <img src="screenshots/Админка/Инфопанель.png" width="400"> | <img src="screenshots/Админка/Заказы.png" width="400"> |
+| **Редактирование заказа** | **Управление товарами** |
+| <img src="screenshots/Админка/Редактирование заказов.png" width="400"> | <img src="screenshots/Админка/Товары.png" width="400"> |
+| **Редактирование товара** | **Материалы** |
+| <img src="screenshots/Админка/Редактирование товаров.png" width="400"> | <img src="screenshots/Админка/Материалы.png" width="400"> |
+| **Отчеты** | |
+| <img src="screenshots/Админка/Отчеты.png" width="400"> | |
 
 </details>
 

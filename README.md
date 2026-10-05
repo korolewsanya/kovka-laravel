@@ -88,7 +88,7 @@
 | **Backend** | Laravel 13, Filament 5, Livewire 4, Sanctum |
 | **Frontend** | Tailwind CSS, Vite |
 | **Mobile** | Java (Android), Retrofit, REST API |
-| **Сервер** | Herd (PHP 8.2, MySQL) |
+| **Сервер** | PHP 8.4, MySQL |
 
 ---
 

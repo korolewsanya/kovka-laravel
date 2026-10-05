@@ -1,10 +1,18 @@
 # 🚀 ПРОЕКТ-ПОРТФОЛИО: "КОВКА" — Интернет-магазин кованых изделий
 
-![PHP](https://img.shields.io/badge/PHP-8.4-blue)
-![Laravel](https://img.shields.io/badge/Laravel-13-red)
-![Filament](https://img.shields.io/badge/Filament-5-purple)
-![Tailwind](https://img.shields.io/badge/Tailwind-3-blue)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white)
+![Livewire](https://img.shields.io/badge/Livewire-4-4E56A6?logo=livewire&logoColor=white)
+![Filament](https://img.shields.io/badge/Filament-5-FDAE4B?logo=laravel&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-3-06B6D4?logo=tailwindcss&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?logo=jquery&logoColor=white)
+![AJAX](https://img.shields.io/badge/AJAX-005571?logo=javascript&logoColor=white)
+![REST API](https://img.shields.io/badge/REST_API-25A162?logo=fastapi&logoColor=white)
+![Java](https://img.shields.io/badge/Java-Android-ED8B00?logo=openjdk&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---

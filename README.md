@@ -58,7 +58,9 @@
 | **Редактирование товара** | **Материалы** |
 | <img src="screenshots/Админка/ТоварыРедактирование.png" width="400"> | <img src="screenshots/Админка/Материалы.png" width="400"> |
 | **Отчеты** | |
-| <img src="screenshots/Админка/Отчеты.png" width="400"> | |
+| <img src="screenshots/Админка/Отчеты.png" width="400"> | 
+
+</details>
 
 <br>
 

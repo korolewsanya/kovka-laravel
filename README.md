@@ -26,10 +26,50 @@
 
 ---
 
-### 📸 Скриншоты
+### 📸 Галерея скриншотов
 
-#### 🛍 Витрина магазина (Frontend)
-![Витрина магазина](screenshots/Сайт/главная.png)
+#### 🛍 Витрина интернет-магазина (Frontend)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты сайта</summary>
+<br>
+
+| Главная страница | Каталог товаров |
+| :---: | :---: |
+| <img src="screenshots/Сайт/главная.png" width="400"> | <img src="screenshots/Сайт/товары.png" width="400"> |
+| **Поиск по сайту** | **Оформление заказа** |
+| <img src="screenshots/Сайт/поиск.png" width="400"> | <img src="screenshots/Сайт/заказ.png" width="400"> |
+| **Успешный заказ** | |
+| <img src="screenshots/Сайт/финиш.png" width="400"> | |
+
+</details>
+
+<br>
+
+#### ⚙️ Админ-панель и CRM (Filament)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты админки</summary>
+<br>
+
+| Дашборд | Управление заказами |
+| :---: | :---: |
+| <img src="screenshots/Админка/дашборд.png" width="400"> | <img src="screenshots/Админка/заказы.png" width="400"> |
+| **CRM система** | **Финансы** |
+| <img src="screenshots/Админка/crm.png" width="400"> | <img src="screenshots/Админка/финансы.png" width="400"> |
+
+</details>
+
+<br>
+
+#### 📱 Мобильное приложение (Android/Java)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты мобильного приложения</summary>
+<br>
+
+| Экран входа | Список заказов | Уведомления |
+| :---: | :---: | :---: |
+| <img src="screenshots/Мобильное/login.png" width="200"> | <img src="screenshots/Мобильное/orders.png" width="200"> | <img src="screenshots/Мобильное/notifications.png" width="200"> |
+
+</details>
 
 ---
 

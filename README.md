@@ -60,6 +60,23 @@
 | **Отчеты** | |
 | <img src="screenshots/Админка/Отчеты.png" width="400"> | |
 
+<br>
+
+#### 📱 Мобильное приложение (Android/Java)
+<details>
+<summary>👉 Нажмите, чтобы развернуть скриншоты приложения</summary>
+<br>
+
+| Главная | Заказы | Материалы |
+| :---: | :---: | :---: |
+| <img src="screenshots/Приложение/Главная.png" width="200"> | <img src="screenshots/Приложение/Заказы.png" width="200"> | <img src="screenshots/Приложение/Материалы.png" width="200"> |
+| **Редактирование заказа** | **Создание товара** | **Редактирование материала** |
+| <img src="screenshots/Приложение/ЗаказыРедактирование.png" width="200"> | <img src="screenshots/Приложение/ТоварыСоздание.png" width="200"> | <img src="screenshots/Приложение/МатериалыРедактирование.png" width="200"> |
+| **Отчеты** | **Редактирование отчета** | **Финансы** |
+| <img src="screenshots/Приложение/Отчеты.png" width="200"> | <img src="screenshots/Приложение/ОтчетыРедактирование.png" width="200"> | <img src="screenshots/Приложение/финансы.png" width="200"> |
+
+</details>
+
 </details>
 
 ---

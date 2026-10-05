@@ -90,42 +90,28 @@
 
 | Компонент | Технологии |
 |-----------|------------|
-| **Backend** | Laravel 13, Filament 5, Livewire 4, Sanctum |
-| **Frontend** | Tailwind CSS, Vite |
+| **Backend** | PHP 8.4, Laravel 13, Livewire 4, Filament 5, Sanctum |
+| **Frontend** | Tailwind CSS, Alpine.js, Vite |
 | **Mobile** | Java (Android), Retrofit, REST API |
-| **Сервер** | PHP 8.4, MySQL |
+| **База данных** | MySQL |
 
 ---
 
-### 📁 Структура проекта
-
-```
-kovka-laravel/
-├── app/
-│   ├── Filament/          # Админ-панель + CRM (ресурсы, виджеты, страницы)
-│   ├── Http/              # Контроллеры (API и Web)
-│   ├── Models/            # Модели Eloquent
-│   ├── Policies/          # Права доступа
-│   └── Notifications/     # Уведомления
-├── config/                # Конфигурации Laravel
-├── database/
-│   ├── migrations/        # Миграции БД
-│   └── seeders/           # Наполнение тестовыми данными
-├── routes/
-│   ├── api.php            # REST API маршруты
-│   ├── web.php            # Web маршруты
-│   └── console.php        # Консольные команды
-├── resources/
-│   ├── views/             # Blade-шаблоны
-│   ├── lang/              # Локализация (ru)
-│   └── css/               # Стили
-└── public/                # Публичные файлы (изображения, сборки)
-```
-
 ### 🔗 Демо и ссылки
-- 🌐 **Сайт:** [ваш-домен.ru]
-- 📱 **Google Play:** [ссылка на приложение]
-- 📂 **GitHub:** [https://github.com/korolewsanya/kovka-laravel](https://github.com/korolewsanya/kovka-laravel)
+
+- 🌐 **Сайт (витрина):** [ваш-домен.ru](https://ваш-домен.ru)
+- 🌐 **Админка/CRM:** [ваш-домен.ru/admin](https://ваш-домен.ru/admin)
+- 📱 **Google Play:** [ссылка на приложение](https://play.google.com/store/apps/details?id=ваш.package)
+- 📂 **GitHub:** [korolewsanya/kovka-laravel](https://github.com/korolewsanya/kovka-laravel)
+
+#### 🔑 Единый доступ для тестирования
+
+> Используется для входа в **Админку/CRM** и **мобильное приложение**
+
+| Роль | Логин | Пароль |
+| :--- | :--- | :--- |
+| Администратор | `admin@kovka.com` | `12345678` |
+| Рабочий | `employee@kovka.com` | `12345678` |
 
 ---
 

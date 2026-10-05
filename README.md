@@ -1,6 +1,6 @@
 # 🚀 ПРОЕКТ-ПОРТФОЛИО: "КОВКА" — Интернет-магазин кованых изделий
 
-![PHP](https://img.shields.io/badge/PHP-8.2-blue)
+![PHP](https://img.shields.io/badge/PHP-8.4-blue)
 ![Laravel](https://img.shields.io/badge/Laravel-13-red)
 ![Filament](https://img.shields.io/badge/Filament-5-purple)
 ![Tailwind](https://img.shields.io/badge/Tailwind-3-blue)

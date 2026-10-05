@@ -54,9 +54,9 @@
 | :---: | :---: |
 | <img src="screenshots/Админка/Инфопанель.png" width="400"> | <img src="screenshots/Админка/Заказы.png" width="400"> |
 | **Редактирование заказа** | **Управление товарами** |
-| <img src="screenshots/Админка/Редактирование заказов.png" width="400"> | <img src="screenshots/Админка/Товары.png" width="400"> |
+| <img src="screenshots/Админка/ЗаказыРедактирование.png" width="400"> | <img src="screenshots/Админка/Товары.png" width="400"> |
 | **Редактирование товара** | **Материалы** |
-| <img src="screenshots/Админка/Редактирование товаров.png" width="400"> | <img src="screenshots/Админка/Материалы.png" width="400"> |
+| <img src="screenshots/Админка/ТоварыРедактирование.png" width="400"> | <img src="screenshots/Админка/Материалы.png" width="400"> |
 | **Отчеты** | |
 | <img src="screenshots/Админка/Отчеты.png" width="400"> | |
 

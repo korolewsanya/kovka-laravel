@@ -102,7 +102,7 @@
 - 🌐 **Сайт (витрина):** [ваш-домен.ru](https://ваш-домен.ru)
 - 🌐 **Админка/CRM:** [ваш-домен.ru/admin](https://ваш-домен.ru/admin)
 - 📱 **Google Play:** [ссылка на приложение](https://play.google.com/store/apps/details?id=ваш.package)
-- 📂 **GitHub (приложение):** https://github.com/korolewsanya/kovka-laravel
+- 📂 **GitHub (приложение):** https://github.com/korolewsanya/kovka-laravel-android
 
 #### 🔑 Единый доступ для тестирования
 

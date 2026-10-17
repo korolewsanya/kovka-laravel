@@ -19,6 +19,10 @@ class OrderController extends Controller
             'email' => 'nullable|email|max:255',            // Email необязательно
             'coment' => 'nullable|string',                  // Комментарий необязательно
             'product_id' => 'required|exists:products,id',  // Товар должен существовать
+            'agree' => 'accepted',                          // Проверка чекбокса согласия
+            ], [
+            // Кастомный текст ошибки на русском (если галочка не стоит)
+            'agree.accepted' => 'Вы должны согласиться с политикой конфиденциальности, чтобы оформить заказ.',                         // Проверка чекбокса согласия
         ]);
 
         // Шаг 2: Находим товар по id, выбранный при заказе, в базе данных
@@ -32,9 +36,9 @@ class OrderController extends Controller
             'customer_email' => $request->email,    // Email (может быть null)
             'comment' => $request->coment,          // Комментарий (может быть null)
             'price' => $product->price,             // Цена из товара
-            'length' => $product->length,           // Длина из товара 
-            'width' => $product->width,             // Ширина из товара 
-            'height' => $product->height,           // Высота из товара 
+            'length' => $product->length,           // Длина из товара
+            'width' => $product->width,             // Ширина из товара
+            'height' => $product->height,           // Высота из товара
             'status' => 'new',                      // Статус "Новый"
             'order_date' => now(),                  // Дата заказа (сейчас)
             'image' => $product->image,             // Фото из товара

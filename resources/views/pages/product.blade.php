@@ -98,6 +98,25 @@
                 <textarea name="coment" class="textarea textarea-bordered" rows="3"></textarea>
             </div>
 
+            {{-- ЧЕКБОКС СОГЛАСИЯ --}}
+
+            <div class="form-control mt-4">
+                <label class="label cursor-pointer justify-start gap-3 p-0">
+                    {{-- required не даст отправить форму без галочки --}}
+                    <input type="checkbox" name="agree" value="1" class="checkbox checkbox-primary" required>
+                    <span class="label-text text-sm text-gray-600">
+                        Соглашаюсь с
+                        <a href="{{ url('/privacy') }}" target="_blank" class="link link-primary font-semibold">
+                            политикой конфиденциальности
+                        </a> *
+                    </span>
+                </label>
+                {{-- Вывод ошибки, если серверная валидация не пройдена --}}
+                @error('agree')
+                    <span class="text-error text-sm mt-1">{{ $message }}</span>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-primary w-full text-lg">
                 Отправить заказ
             </button>

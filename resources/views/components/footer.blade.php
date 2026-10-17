@@ -14,12 +14,17 @@
                class="hover:opacity-70 transition-opacity">
                 <img src="{{ asset('storage/products/WhatsApp.png') }}" alt="WhatsApp" class="w-6 h-6">
             </a>
+            <a href="https://max.ru/79934456418" target="_blank" rel="noopener noreferrer"
+               class="hover:opacity-70 transition-opacity">
+                <img src="{{ asset('storage/products/Max.png') }}" alt="Max" class="w-6 h-6">
+            </a>
         </div>
     </nav>
 
     <nav>
+        <a href="{{ url('/privacy') }}" target="_blank" class="link link-hover text-sm mt-2">
+            Политика конфиденциальности
+        </a>
         <h6 class="footer-title">© Ковка</h6>
-        <p>Художественная ковка металла</p>
-        <p>Индивидуальные заказы</p>
     </nav>
 </footer>

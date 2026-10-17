@@ -13,7 +13,7 @@ Route::get('/category/{category}', [PageController::class, 'category'])->name('c
 //GET-запрос, URL: /product/категория/ID (два параметра), Вызвать метод product(), Имя маршрута: product
 Route::get('/product/{category}/{id}', [PageController::class, 'product'])->name('product');
 
-//Обрабатывает POST-запросы (отправка формы), URL: /order, Вызвать метод store() в контроллере OrderController, 
+//Обрабатывает POST-запросы (отправка формы), URL: /order, Вызвать метод store() в контроллере OrderController,
 //Имя маршрута: order.store
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
@@ -21,3 +21,8 @@ Route::get('/order/success/{id}', [OrderController::class, 'success'])->name('or
 
 // МАРШРУТ ДЛЯ ПОИСКА
 Route::get('/search', [PageController::class, 'search'])->name('search');
+
+// МАРШРУТ ДЛЯ ПОЛИТИКИ КОНФЕДЕНЦИАЛЬНОСТИ
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');

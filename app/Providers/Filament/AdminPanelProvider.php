@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Pages\Auth\CustomLogin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,7 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')   //Присваивает панели уникальный идентификатор 'admin'. Для внутренней маршрутизации и конфигурации.
             ->topNavigation() //это для верхнего меню (по умолчанию сбоку слева)
             ->path('admin') //Устанавливает URL-адрес админ-панели. Теперь админка доступна по адресу: http://ваш-сайт/admin
-            ->login()       //Включает стандартную страницу входа в админку. По адресу /admin/login появляется форма логина.
+            //->login()       //Включает стандартную страницу входа в админку. По адресу /admin/login появляется форма логина.
+            ->login(CustomLogin::class) // <-- свой класс вместо стандартного - ТОЛЬКО для тестового и демо входа
             ->colors([      //Устанавливает основной цвет панели.
                 'primary' => Color::Amber,
             ])

@@ -18,9 +18,17 @@ class AuthController extends BaseApiController
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
+
+            // === ДОБАВЛЯЕМ ПРОВЕРКУ СОГЛАСИЯ ===
+            // Правило 'accepted' требует, чтобы пришло значение 'yes', 'on', 1, '1' или true
+            'agree' => 'accepted',
+        ], [
+            // Кастомный текст ошибки на русском
+            'agree.accepted' => 'Вы должны согласиться с политикой конфиденциальности для входа в систему.',
         ]);
 
         if ($validator->fails()) {
+            // Возвращаем первую ошибку (в данном случае — про согласие)
             return $this->error($validator->errors()->first(), 422);
         }
 

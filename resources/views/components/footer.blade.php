@@ -14,7 +14,8 @@
                class="hover:opacity-70 transition-opacity">
                 <img src="{{ asset('storage/products/WhatsApp.png') }}" alt="WhatsApp" class="w-6 h-6">
             </a>
-            <a href="https://max.ru/79934456418" target="_blank" rel="noopener noreferrer"
+
+            <a href="https://max.ru/u/f9LHodD0cOJvj6W48QPkjejC1X9V-Xfj6ZIwWcC_5LQoxiXZZRU0xbAjhCw" target="_blank" rel="noopener noreferrer"
                class="hover:opacity-70 transition-opacity">
                 <img src="{{ asset('storage/products/Max.png') }}" alt="Max" class="w-6 h-6">
             </a>

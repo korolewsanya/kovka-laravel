@@ -26,51 +26,47 @@ class ImageController extends BaseApiController
     public function upload(Request $request)
     {
         try {
+            // 1. Проверяем, пришел ли файл через стандартный метод Laravel
+            if (!$request->hasFile('image')) {
+                return $this->error('Файл не передан или произошла ошибка загрузки', 400);
+            }
+
+            // 2. ВАЛИДАЦИЯ: проверяем, что это картинка и она не больше 2 МБ
+            $request->validate([
+                'image' => 'required|file|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            ]);
+
+            $file = $request->file('image');
+
+            // 3. Проверяем, что файл загрузился без ошибок
+            if (!$file->isValid()) {
+                return $this->error('Ошибка загрузки: ' . $file->getErrorMessage(), 400);
+            }
+
             $tags = $request->input('tags', 'image');
-            
             $cleanName = preg_replace('/[^a-zA-Zа-яА-Я0-9._-]/u', '_', $tags);
-            
             if (empty($cleanName)) {
                 $cleanName = time();
             }
-            
-            if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-                $error = $_FILES['image']['error'] ?? 'неизвестно';
-                \Log::error('Upload error code: ' . $error);
-                return $this->error('Ошибка загрузки файла. Код: ' . $error, 400);
-            }
 
-            $file = $_FILES['image'];
-            
-            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-            if (empty($extension)) {
-                $extension = 'jpg';
-            }
-            
+            $extension = $file->getClientOriginalExtension() ?: 'jpg';
             $filename = $cleanName . '.' . $extension;
-            
-            $destination = storage_path('app/public/products/' . $filename);
-            
-            if (file_exists($destination)) {
-                $filename = $cleanName . '_' . time() . '.' . $extension;
-                $destination = storage_path('app/public/products/' . $filename);
-            }
-            
-            $dir = dirname($destination);
-            if (!is_dir($dir)) {
-                mkdir($dir, 0777, true);
-            }
-            
-            if (move_uploaded_file($file['tmp_name'], $destination)) {
+
+            // 4. Сохраняем файл через встроенный метод Laravel (в storage/app/public/products)
+            $path = $file->storeAs('products', $filename, 'public');
+
+            if ($path) {
                 return $this->success([
                     'name' => $filename,
-                    'url' => asset('storage/products/' . $filename),
+                    'url' => asset('storage/' . $path),
                     'tags' => $tags,
                 ], 'Изображение успешно загружено', 201);
             }
-            
+
             return $this->error('Не удалось сохранить файл', 500);
-            
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return $this->error($e->getMessage(), 422);
         } catch (\Exception $e) {
             \Log::error('Upload error:', ['message' => $e->getMessage()]);
             return $this->error('Ошибка: ' . $e->getMessage(), 500);
@@ -81,7 +77,7 @@ class ImageController extends BaseApiController
     {
         try {
             $filename = $request->input('filename');
-            
+
             if (empty($filename)) {
                 return $this->error('Имя файла не указано', 400);
             }

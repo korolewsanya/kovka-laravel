@@ -16,7 +16,8 @@ use App\Http\Controllers\Api\ImageController;
 // ПУБЛИЧНЫЕ МАРШРУТЫ (Доступны без токена)
 // ==========================================
 // Только вход и тест
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:6,30'); // Защита от перебора: 5 попыток в минуту с одного IP
+//Route::post('/login', [AuthController::class, 'login']);
 Route::get('/test', function () {
     return ['message' => 'API работает!'];
 });
